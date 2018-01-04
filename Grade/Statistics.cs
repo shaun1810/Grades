@@ -1,6 +1,7 @@
+using System;
+
 namespace Grades
 {
-
    public class Statistics
     {
         float highestGrade;
@@ -14,19 +15,19 @@ namespace Grades
             get 
             {
                 string result;
-                if (averGrade >= 90 )
+                if (Math.Round(averGrade) >= 90 )
                 {
                     result = "A";
                 }
-                else if (averGrade >= 80)
+                else if (Math.Round(averGrade) >= 80)
                 {
                     result = "B";
                 }
-                else if (averGrade >=70)
+                else if (Math.Round(averGrade) >=70)
                 {
                     result = "C";
                 }
-                else if (averGrade >= 60)
+                else if (Math.Round(averGrade) >= 60)
                 {
                     result = "D";
                 }
@@ -62,7 +63,6 @@ namespace Grades
                 }
                 return result;
             }
-
         }
 
         public Statistics()
