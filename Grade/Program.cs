@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 namespace Grades
 {
     class Program
@@ -7,17 +8,52 @@ namespace Grades
         static void Main(string[] args)
         {
             GradeBook book = new GradeBook();
-            book.NameChange += OnNameChanged;
-            /*book.Name = "Hello, this is the Gradebook program!";
-            Console.WriteLine(book.Name);
-            book.Name = "The GradeBook Welcomes thee!";*/
-            book.Name = "Shaun's book";
             book.AddGrade(78);
             book.AddGrade(99.444f);
             book.AddGrade(80);
-            book.WriteGradesForLoop(Console.Out);
+            book.NameChange += OnNameChanged;
+            
+            /*book.Name = "Hello, this is the Gradebook program!";
+            book.Name = "The GradeBook Welcomes thee!";*/
+            
+            bool validName = false;         
+            string bookName;
+
+            while(validName == false)
+            {
+            try{
+                Console.WriteLine("Please Enter a Name for your gradebook: ");
+                bookName = Console.ReadLine();
+                if (bookName != null && bookName != "" && bookName != " ")
+                {
+                    book.Name = bookName;
+                    validName = true;
+                }
+                else
+                {
+                    throw new ArgumentException("Name cannot be null or empty");
+                }
+            }
+            catch(ArgumentException ex){
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                Console.WriteLine("Thank you choosing a valid name!");
+            }
+            }
+
+          /*book.WriteGradesForLoop(Console.Out);
             book.WriteGradesForEachLoop(Console.Out);
-            book.WriteGradesWhileLoop(Console.Out);
+            book.WriteGradesWhileLoop(Console.Out);*/
+            
+            using (StreamWriter outputFile = File.CreateText("Grades.txt"))
+            {
+                book.WriteGradesToFile(outputFile);
+                outputFile.Close();
+            }
+            
+           
             Statistics stats = book.ComputeStatistics();
             if (stats.GetActiveStats() == true)
             {

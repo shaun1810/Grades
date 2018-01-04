@@ -17,23 +17,18 @@ namespace Grades
            }
            set{
                
-               if (!String.IsNullOrEmpty(value))
-               {
-                    if(_name != value)
-                    {
+           if(_name != value)
+                {
 
                       NameChangedEventArgs args = new NameChangedEventArgs();  
                       args.CurrentName = _name;
                       args.NewName = value;
                       NameChange(this, args);
-
-                    }
+                }
                     _name = value;
                }
-
-               }
-       }
-
+        }
+        
         internal void WriteGradesWhileLoop(TextWriter destination)
         {
             int i = currentGrades.Count -1;
@@ -60,6 +55,16 @@ namespace Grades
             for (int i=currentGrades.Count; i>0; i--)
             {
                 destination.WriteLine(currentGrades[i-1]);
+            }
+        }
+
+        public void WriteGradesToFile(StreamWriter outputFile)
+        {
+              outputFile.WriteLine(_name);
+              outputFile.WriteLine("Grades From the GradeBook Program.");
+            for (int i=currentGrades.Count; i>0; i--)
+            {
+                outputFile.WriteLine(currentGrades[i-1]);
             }
         }
 
