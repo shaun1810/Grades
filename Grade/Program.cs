@@ -7,8 +7,7 @@ namespace Grades
     {
         static void Main(string[] args)
         {
-            GradeBook book = new GradeBook();
-            
+            GradeBook book = createGradeBook();
             GetBookName(book);
             addGradesToBook(book);
             SaveBook(book);
@@ -17,6 +16,12 @@ namespace Grades
             /*book.WriteGradesForLoop(Console.Out);
               book.WriteGradesForEachLoop(Console.Out);
               book.WriteGradesWhileLoop(Console.Out);*/
+        }
+
+
+        private static GradeBook createGradeBook()
+        {
+            return new DisregardGradeBook();
         }
 
         private static void GenerateResults(GradeBook book)

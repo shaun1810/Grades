@@ -7,7 +7,7 @@ namespace Grades
    public class GradeBook
     {
        public event NameChangeDelegate NameChange;
-       private List<float> currentGrades;
+       protected List<float> currentGrades;
        private string _name;
        public string Name
        {
@@ -78,7 +78,7 @@ namespace Grades
             currentGrades.Add(grade);
         }
 
-        public Statistics ComputeStatistics()
+        public virtual Statistics ComputeStatistics()
         {
           Statistics stats = new Statistics();
           if (currentGrades.Count != 0)
